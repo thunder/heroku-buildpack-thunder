@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ -f $1/thunder.info.yml ]; then
+  echo "Thunder distribution"
+  exit 0
+else
+  exit 1
+fi

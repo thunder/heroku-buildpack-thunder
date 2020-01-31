@@ -1,0 +1,8 @@
+{
+	"name": "thunder/heroku-buildpack-thunder",
+	"description": "Toolkit for running Thunder CMS on Heroku.",
+	"keywords": ["thunder", "heroku", "php"],
+	"homepage": "https://github.com/ol0lll/heroku-buildpack-thunder",
+	"type": "library"
+}
+
