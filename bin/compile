@@ -39,6 +39,10 @@ echo "-----> Build composer.lock"
 mv $build_dir /app/thunder
 mkdir $build_dir
 
+# debug
+ls /app/thunder
+echo $build_dir
+
 TEST_DIR=$build_dir
 THUNDER_DIST_DIR=/app/thunder
 export COMPOSER_MEMORY_LIMIT=-1
@@ -49,6 +53,9 @@ cd ${TEST_DIR}
 
 composer config repositories.thunder path ${THUNDER_DIST_DIR}
 composer require "thunder/thunder-distribution:*" "thunder/thunder_testing_demo:3.x-dev" "composer/composer:^1.9.0" --no-update
+
+# debug
+cat composer.json
 
 # Add platform requirements.
 composer require "php:>=7.2" "ext-pdo_sqlite:*" --no-update --ignore-platform-reqs
