@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-source /app/heroku-buildpack-php/bin/util/common.sh
-
 status "Install minimal composer"
 
 # Copied from https://github.com/heroku/heroku-buildpack-php
