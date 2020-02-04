@@ -39,7 +39,6 @@ echo "-----> Build composer.lock"
 ### Build thunder project.
 mv $build_dir /app/thunder
 mkdir $build_dir
-mv /app/thunder $build_dir/thunder-distribution
 
 TEST_DIR=$build_dir
 THUNDER_DIST_DIR=$build_dir/thunder-distribution
@@ -49,6 +48,7 @@ composer create-project thunder/thunder-project:3.x ${TEST_DIR} --stability dev 
 
 cd ${TEST_DIR}
 
+mv /app/thunder ${THUNDER_DIST_DIR}
 composer config repositories.thunder path ${THUNDER_DIST_DIR}
 composer require "thunder/thunder-distribution:*" "thunder/thunder_testing_demo:3.x-dev" "composer/composer:^1.9.0" --no-update
 
