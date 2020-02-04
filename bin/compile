@@ -39,9 +39,10 @@ echo "-----> Build composer.lock"
 ### Build thunder project.
 mv $build_dir /app/thunder
 mkdir $build_dir
+mv /app/thunder $build_dir/thunder-distribution
 
 TEST_DIR=$build_dir
-THUNDER_DIST_DIR=/app/thunder
+THUNDER_DIST_DIR=$build_dir/thunder-distribution
 export COMPOSER_MEMORY_LIMIT=-1
 
 composer create-project thunder/thunder-project:3.x ${TEST_DIR} --stability dev --no-interaction --no-install
