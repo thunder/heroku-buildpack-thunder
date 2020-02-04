@@ -24,7 +24,7 @@ source /app/heroku-buildpack-php/bin/util/common.sh
 
 # Install minimal composer
 source ./bin/util/install-composer.sh
-install_minimal_composer()
+install_minimal_composer
 
 # Set up Composer
 export COMPOSER_HOME=$cache_dir/.composer
