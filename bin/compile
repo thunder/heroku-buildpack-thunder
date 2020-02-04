@@ -19,8 +19,12 @@ env_dir=${3:-} # Anvil has none
 
 git clone --quiet https://github.com/heroku/heroku-buildpack-php /app/heroku-buildpack-php
 
+# Use library from heroku-buildpack-php.
+source /app/heroku-buildpack-php/bin/util/common.sh
+
 # Install minimal composer
-./bin/util/install-composer.sh
+source ./bin/util/install-composer.sh
+install_minimal_composer
 
 # Set up Composer
 export COMPOSER_HOME=$cache_dir/.composer
@@ -33,17 +37,18 @@ composer() {
 echo "-----> Build composer.lock"
 
 ### Build thunder project.
-mv $build_dir thunder
+mv $build_dir /app/thunder
 mkdir $build_dir
 
 TEST_DIR=$build_dir
-THUNDER_DIST_DIR=thunder
+THUNDER_DIST_DIR=$build_dir/thunder-distribution
 export COMPOSER_MEMORY_LIMIT=-1
 
 composer create-project thunder/thunder-project:3.x ${TEST_DIR} --stability dev --no-interaction --no-install
 
 cd ${TEST_DIR}
 
+mv /app/thunder ${THUNDER_DIST_DIR}
 composer config repositories.thunder path ${THUNDER_DIST_DIR}
 composer require "thunder/thunder-distribution:*" "thunder/thunder_testing_demo:3.x-dev" "composer/composer:^1.9.0" --no-update
 
