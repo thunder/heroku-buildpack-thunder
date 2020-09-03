@@ -11,11 +11,12 @@ install_sqlite() {
     tar xzf /app/.sqlite/sqlite.tar.gz --strip-components 1 -C /app/.sqlite/sqlite
 
     cd /app/.sqlite/sqlite
-    ./configure >/dev/null 2>&1
+    ./configure --prefix=/app/.sqlite >/dev/null 2>&1
     make
-    sudo make install
+    make install
     rm /app/.sqlite/sqlite.tar.gz
     rm -fr /app/.sqlite/sqlite
+    ls /app/.sqlite
 
 #echo "Building SQLite…"
 #
