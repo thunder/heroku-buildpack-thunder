@@ -7,7 +7,7 @@ install_sqlite() {
     mkdir -p /app/.sqlite
     curl_retry_on_18 --fail --silent --location -o /app/.sqlite/sqlite.tar.gz https://www.sqlite.org/2018/sqlite-autoconf-3260000.tar.gz
 
-    mkdir -p /app/.sqlite/php-min
+    mkdir -p /app/.sqlite/sqlite
     tar xzf /app/.sqlite/sqlite.tar.gz -C /app/.sqlite/sqlite
 
     cd sqlite
