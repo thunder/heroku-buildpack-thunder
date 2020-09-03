@@ -10,6 +10,7 @@ install_sqlite() {
     mkdir -p /app/.sqlite/sqlite
     tar xzf /app/.sqlite/sqlite.tar.gz -C /app/.sqlite/sqlite
 
+    ls
     cd sqlite
     ./configure
     make
