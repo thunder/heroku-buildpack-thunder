@@ -32,6 +32,10 @@ install_minimal_composer
 
 echo 'sqlite3.extension_dir="/app/.sqlite"' > /app/.user.ini
 
+php -i
+echo '###'
+ls /app/.sqlite
+
 # Set up Composer
 export COMPOSER_HOME=$cache_dir/.composer
 mkdir -p $COMPOSER_HOME
