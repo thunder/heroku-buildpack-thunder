@@ -24,13 +24,13 @@ source /app/heroku-buildpack-php/bin/util/common.sh
 
 # Install sqlite
 source ./bin/util/install-sqlite.sh
-#install_sqlite
-php --ini
-echo -n "sqlite3.extension_dir=/app/.sqlite" >> /etc/php/php.ini
+install_sqlite
 
 # Install minimal composer
 source ./bin/util/install-composer.sh
 install_minimal_composer
+
+export PHP_OPTIONS='-d sqlite3.extension_dir="/app/.sqlite"'
 
 # Set up Composer
 export COMPOSER_HOME=$cache_dir/.composer
