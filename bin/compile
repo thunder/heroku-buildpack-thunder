@@ -2,7 +2,7 @@
 
 # bin/compile <build-dir> <cache-dir> <env-dir>
 
-
+env
 # fail hard
 set -o pipefail
 # fail harder
