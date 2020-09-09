@@ -2,7 +2,6 @@
 
 # bin/compile <build-dir> <cache-dir> <env-dir>
 
-env
 # fail hard
 set -o pipefail
 # fail harder
@@ -66,7 +65,7 @@ echo "web: heroku-php-apache2 docroot" > Procfile
 echo "${DATABASE_URL}"
 
 # Add install after php is setup correctly.
-composer config scripts.compile.0 "./vendor/bin/drush si --db-url=\"${DATABASE_URL}\" --site-name=\"Thunder PR ${HEROKU_PR_NUMBER}\""
+#composer config scripts.compile.0 "./vendor/bin/drush si --db-url=\"${DATABASE_URL}\" --site-name=\"Thunder PR ${HEROKU_PR_NUMBER}\""
 #composer config scripts.compile.1  "php ./docroot/core/scripts/drupal server"
 
 # Let php build pack do its thing
