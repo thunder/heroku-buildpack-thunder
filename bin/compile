@@ -63,6 +63,7 @@ composer install --no-dev --no-progress --ignore-platform-reqs
 
 # Add runtime command.
 echo "web: heroku-php-apache2 docroot" > Procfile
+echo "${DATABASE_URL}"
 
 # Add install after php is setup correctly.
 composer config scripts.compile.0 "./vendor/bin/drush si --db-url=\"${DATABASE_URL}\" --site-name=\"Thunder PR ${HEROKU_PR_NUMBER}\""
