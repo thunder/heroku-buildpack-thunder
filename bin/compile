@@ -65,7 +65,7 @@ composer install --no-dev --no-progress --ignore-platform-reqs
 echo "web: heroku-php-apache2 docroot" > Procfile
 
 # Add install after php is setup correctly.
-composer config scripts.compile.0 "set -x; ./vendor/bin/drush si --db-url=$DATABASE-URL --site-name='Thunder PR $HEROKU_PR_NUMBER"
+composer config scripts.compile.0 "set -x; ./vendor/bin/drush si --db-url=$DATABASE_URL --site-name='Thunder PR $HEROKU_PR_NUMBER"
 #composer config scripts.compile.1  "php ./docroot/core/scripts/drupal server"
 
 # Let php build pack do its thing
