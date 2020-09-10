@@ -63,6 +63,28 @@ composer install --no-dev --no-progress --ignore-platform-reqs
 # Add runtime command.
 echo "web: heroku-php-apache2 docroot" > Procfile
 
+cp ${TEST_DIR}/docroot/sites/default/default.settings.php TEST_DIR}/docroot/sites/default/settings.php
+
+cat <<EOF >> ${TEST_DIR}/docroot/sites/default/default.settings.php
+$db = parse_url($_ENV["DATABASE_URL"]);
+$databases = array (
+  'default' => 
+  array (
+    'default' => 
+    array (
+      'database' => trim($db["path"],"/"),
+      'username' => $db["user"],
+      'password' => $db["pass"],
+      'host' => $db["host"],
+      'port' => '5432',
+	  'namespace' => 'Drupal\\Core\\Database\\Driver\\pgsql',
+      'driver' => 'pgsql',
+      'prefix' => '',
+    ),
+  ),
+);
+EOF
+
 # Add install after php is setup correctly.
 #composer config scripts.compile.0 "./vendor/bin/drush si --db-url=\"${DATABASE_URL}\" --site-name=\"Thunder PR ${HEROKU_PR_NUMBER}\""
 #composer config scripts.compile.1  "php ./docroot/core/scripts/drupal server"
