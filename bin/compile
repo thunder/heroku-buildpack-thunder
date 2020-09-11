@@ -66,18 +66,18 @@ echo "web: heroku-php-apache2 docroot" > Procfile
 cp ${TEST_DIR}/docroot/sites/default/default.settings.php ${TEST_DIR}/docroot/sites/default/settings.php
 
 cat <<\EOF >> ${TEST_DIR}/docroot/sites/default/settings.php
-$db = parse_url($_ENV["DATABASE_URL"]);
+$db_info = parse_url(getenv('DATABASE_URL'));
 $databases = array (
-  'default' => 
+  'default' =>
   array (
-    'default' => 
+    'default' =>
     array (
-      'database' => trim($db["path"],"/"),
-      'username' => $db["user"],
-      'password' => $db["pass"],
-      'host' => $db["host"],
-      'port' => '5432',
-	  'namespace' => 'Drupal\\Core\\Database\\Driver\\pgsql',
+      'database' => trim($db_info['path'],'/'),
+      'username' => $db_info['user'],
+      'password' => $db_info['pass'],
+      'host' => $db_info['host'],
+      'port' => $db_info['port'],
+          'namespace' => 'Drupal\\Core\\Database\\Driver\\pgsql',
       'driver' => 'pgsql',
       'prefix' => '',
     ),
