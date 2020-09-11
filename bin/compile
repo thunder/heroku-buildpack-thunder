@@ -66,10 +66,12 @@ release: ls; env; vendor/bin/drush si thunder --account-name=admin --account-pas
 web: heroku-php-apache2 docroot
 EOF
 
+mkdir ${TEST_DIR}/config/sync
 cp ${TEST_DIR}/docroot/sites/default/default.settings.php ${TEST_DIR}/docroot/sites/default/settings.php
 
 cat <<\EOF >> ${TEST_DIR}/docroot/sites/default/settings.php
 $settings['hash_salt'] = 'JT_oQ2RBfau3a-y9twR8c-vxObj2MGRlxP4d9BmnNqjCuuyVvfXFaaFdeSIY-yBAB1LE25fXSw(';
+$settings['config_sync_directory'] = '../config/sync';
 
 $db_info = parse_url(getenv('DATABASE_URL'));
 $databases['default']['default'] = [
