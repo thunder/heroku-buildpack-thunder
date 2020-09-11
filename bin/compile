@@ -61,7 +61,10 @@ composer require "php:>=7.4" --no-update --ignore-platform-reqs
 composer install --no-dev --no-progress --ignore-platform-reqs
 
 # Add runtime command.
-echo "web: heroku-php-apache2 docroot" > Procfile
+cat <<\EOF > Procfile
+release: vendor/bin/drush si thunder --account-name=admin --account-pass=admin --account-mail=admin@example.com --site-mail=admin@example.com --site-name=$HEROKU_APP_NAME --locale=en -y; vendor/bin/drush -y en thunder_demo
+web: heroku-php-apache2 docroot
+EOF
 
 cp ${TEST_DIR}/docroot/sites/default/default.settings.php ${TEST_DIR}/docroot/sites/default/settings.php
 
