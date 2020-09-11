@@ -66,23 +66,19 @@ echo "web: heroku-php-apache2 docroot" > Procfile
 cp ${TEST_DIR}/docroot/sites/default/default.settings.php ${TEST_DIR}/docroot/sites/default/settings.php
 
 cat <<\EOF >> ${TEST_DIR}/docroot/sites/default/settings.php
+$settings['hash_salt'] = 'JT_oQ2RBfau3a-y9twR8c-vxObj2MGRlxP4d9BmnNqjCuuyVvfXFaaFdeSIY-yBAB1LE25fXSw(';
+
 $db_info = parse_url(getenv('DATABASE_URL'));
-$databases = array (
-  'default' =>
-  array (
-    'default' =>
-    array (
-      'database' => trim($db_info['path'],'/'),
-      'username' => $db_info['user'],
-      'password' => $db_info['pass'],
-      'host' => $db_info['host'],
-      'port' => $db_info['port'],
-          'namespace' => 'Drupal\\Core\\Database\\Driver\\pgsql',
-      'driver' => 'pgsql',
-      'prefix' => '',
-    ),
-  ),
-);
+$databases['default']['default'] = [
+  'database' => trim($db_info['path'],'/'),
+  'username' => $db_info['user'],
+  'password' => $db_info['pass'],
+  'host' => $db_info['host'],
+  'port' => $db_info['port'],
+  'namespace' => 'Drupal\\Core\\Database\\Driver\\pgsql',
+  'driver' => 'pgsql',
+  'prefix' => '',
+];
 EOF
 
 # Add install after php is setup correctly.
