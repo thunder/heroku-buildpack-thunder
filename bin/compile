@@ -65,7 +65,7 @@ echo "web: heroku-php-apache2 docroot" > Procfile
 
 cp ${TEST_DIR}/docroot/sites/default/default.settings.php ${TEST_DIR}/docroot/sites/default/settings.php
 
-cat <<\EOF >> ${TEST_DIR}/docroot/sites/default/default.settings.php
+cat <<\EOF >> ${TEST_DIR}/docroot/sites/default/settings.php
 $db = parse_url($_ENV["DATABASE_URL"]);
 $databases = array (
   'default' => 
