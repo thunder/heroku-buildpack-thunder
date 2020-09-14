@@ -86,9 +86,5 @@ $databases['default']['default'] = [
 ];
 EOF
 
-# Add install after php is setup correctly.
-#composer config scripts.compile.0 "./vendor/bin/drush si --db-url=\"${DATABASE_URL}\" --site-name=\"Thunder PR ${HEROKU_PR_NUMBER}\""
-#composer config scripts.compile.1  "php ./docroot/core/scripts/drupal server"
-
 # Let php build pack do its thing
 /app/heroku-buildpack-php/bin/compile ${TEST_DIR} $orig_cache_dir $env_dir
