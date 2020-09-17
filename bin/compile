@@ -62,7 +62,7 @@ composer install --no-dev --no-progress --ignore-platform-reqs
 
 # Add runtime command.
 cat <<\EOF > Procfile
-release: vendor/bin/drush si thunder --account-name=admin --account-pass=admin --account-mail=admin@example.com --site-mail=admin@example.com --site-name=${HEROKU_APP_NAME} --locale=en -y; chmod -R 777 docroot/sites/default/files
+release: psql $DATABASE_URL --command="drop schema public cascade; create schema public;"; vendor/bin/drush si thunder --account-name=admin --account-pass=admin --account-mail=admin@example.com --site-mail=admin@example.com --site-name=${HEROKU_APP_NAME} --locale=en -y; chmod -R 777 docroot/sites/default/files
 web: heroku-php-apache2 docroot
 EOF
 
