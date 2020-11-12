@@ -22,6 +22,10 @@ git clone --quiet https://github.com/heroku/heroku-buildpack-php /app/heroku-bui
 # Use library from heroku-buildpack-php.
 source /app/heroku-buildpack-php/bin/util/common.sh
 
+ls -alh /app
+echo $STACK
+echo $HEROKU_PHP_PLATFORM_REPOSITORIES
+
 # Install minimal composer
 source ./bin/util/install-composer.sh
 install_minimal_composer
