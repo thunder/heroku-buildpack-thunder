@@ -56,7 +56,7 @@ composer remove thunder/thunder-distribution --no-update
 composer require "this/thunder-distribution:*" "composer/composer:^1.9.0" --no-update
 
 # Add platform requirements.
-composer require "php:>=7.4" ext-mbstring:*" --no-update --ignore-platform-reqs
+composer require "php:>=7.4" "ext-mbstring:*" --no-update --ignore-platform-reqs
 
 composer install --no-dev --no-progress --ignore-platform-reqs
 
