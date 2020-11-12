@@ -62,7 +62,7 @@ composer install --no-dev --no-progress --ignore-platform-reqs
 
 # Add runtime command.
 cat <<\EOF > Procfile
-release: vendor/bin/drush sql-drop -y; vendor/bin/drush si thunder --account-name=admin --account-pass=admin --account-mail=admin@example.com --site-mail=admin@example.com --site-name=${HEROKU_APP_NAME} --locale=en -y; chmod -R 777 docroot/sites/default/files
+release: vendor/bin/drush sql-drop -y; vendor/bin/drush si thunder --account-name=admin --account-pass=admin --account-mail=admin@example.com --site-mail=admin@example.com --site-name=${HEROKU_APP_NAME} --locale=en -y; chmod -R 777 docroot/sites/default/files; vendor/bin/drush -y en thunder_demo
 web: heroku-php-apache2 docroot
 EOF
 
