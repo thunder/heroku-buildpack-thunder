@@ -9,7 +9,7 @@ install_minimal_composer() {
     # PHP expects to be installed in /app/.heroku/php because of compiled paths, let's set that up!
     mkdir -p /app/.heroku
     # all system packages live in there
-    mkdir -p $build_dir/.heroku/php
+    mkdir -p /app/.heroku/php
     # set up Composer
     export COMPOSER_HOME=$cache_dir/.composer
     mkdir -p $COMPOSER_HOME
@@ -31,14 +31,14 @@ install_minimal_composer() {
     fi
 
     # minimal PHP needed for installs, and make "composer" invocations use that for now
-    mkdir -p $build_dir/.heroku/php-min
-    ln -s $build_dir/.heroku/php-min /app/.heroku/php-min
+    mkdir -p /app/.heroku/php-min
+    ln -s /app/.heroku/php-min /app/.heroku/php-min
 
-    curl_retry_on_18 --fail --silent --location -o $build_dir/.heroku/php-min.tar.gz "${s3_url}php-min-7.3.23.tar.gz"
-    tar xzf $build_dir/.heroku/php-min.tar.gz -C $build_dir/.heroku/php-min
-    rm $build_dir/.heroku/php-min.tar.gz
+    curl_retry_on_18 --fail --silent --location -o /app/.heroku/php-min.tar.gz "${s3_url}php-min-7.3.23.tar.gz"
+    tar xzf /app/.heroku/php-min.tar.gz -C /app/.heroku/php-min
+    rm /app/.heroku/php-min.tar.gz
 
-    curl_retry_on_18 --fail --silent --location -o $build_dir/.heroku/composer.tar.gz "${s3_url}composer-1.10.13.tar.gz"
-    tar xzf $build_dir/.heroku/composer.tar.gz -C $build_dir/.heroku/php
+    curl_retry_on_18 --fail --silent --location -o /app/.heroku/composer.tar.gz "${s3_url}composer-1.10.13.tar.gz"
+    tar xzf /app/.heroku/composer.tar.gz -C /app/.heroku/php
 
 }
