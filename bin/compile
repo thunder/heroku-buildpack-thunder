@@ -2,7 +2,6 @@
 
 # bin/compile <build-dir> <cache-dir> <env-dir>
 
-
 # fail hard
 set -o pipefail
 # fail harder
@@ -22,21 +21,20 @@ git clone --quiet https://github.com/heroku/heroku-buildpack-php /app/heroku-bui
 # Use library from heroku-buildpack-php.
 source /app/heroku-buildpack-php/bin/util/common.sh
 
-ls -alh /app
-echo $STACK
-echo $HEROKU_PHP_PLATFORM_REPOSITORIES
-
 # Install minimal composer
 source ./bin/util/install-composer.sh
 install_minimal_composer
 
 # Set up Composer
-export COMPOSER_HOME=$cache_dir/.composer
-mkdir -p $COMPOSER_HOME
+#export COMPOSER_HOME=$cache_dir/.composer
+#mkdir -p $COMPOSER_HOME
 
+# this alias is just for now while we install platform packages
 composer() {
-	/app/.php/php-min/bin/php /app/.php/php/bin/composer "$@"
+	/app/.heroku/php-min/bin/php /app/.heroku/php/bin/composer "$@"
 }
+export -f composer
+
 
 echo "-----> Build composer.lock"
 
