@@ -6,16 +6,13 @@ install_minimal_composer() {
 
     ### Copied from https://github.com/heroku/heroku-buildpack-php
 
-    # PHP expects to be installed in /app/.heroku/php because of compiled paths, let's set that up!
-    mkdir -p /app/.heroku
+    # PHP expects to be installed in /app/.php/php because of compiled paths, let's set that up!
+    mkdir -p /app/.php
     # all system packages live in there
-    mkdir -p /app/.heroku/php
+    mkdir -p /app/.php/php
     # set up Composer
     export COMPOSER_HOME=$cache_dir/.composer
     mkdir -p $COMPOSER_HOME
-
-    # if the build dir is not "/app", we symlink in the .heroku/php subdir (and only that, to avoid problems with other buildpacks) so that PHP correctly finds its INI files etc
-    # [[ $build_dir == '/app' ]] || ln -s $build_dir/.heroku/php /app/.heroku/php
 
     s3_url="https://lang-php.s3.amazonaws.com/dist-${STACK}-stable/"
     # prepend the default repo to the list configured by the user
@@ -31,14 +28,14 @@ install_minimal_composer() {
     fi
 
     # minimal PHP needed for installs, and make "composer" invocations use that for now
-    mkdir -p /app/.heroku/php-min
-    ln -s /app/.heroku/php-min /app/.heroku/php-min
+    mkdir -p /app/.php/php-min
+    ln -s /app/.php/php-min /app/.php/php-min
 
-    curl_retry_on_18 --fail --silent --location -o /app/.heroku/php-min.tar.gz "${s3_url}php-min-7.3.23.tar.gz"
-    tar xzf /app/.heroku/php-min.tar.gz -C /app/.heroku/php-min
-    rm /app/.heroku/php-min.tar.gz
+    curl_retry_on_18 --fail --silent --location -o /app/.php/php-min.tar.gz "${s3_url}php-min-7.3.23.tar.gz"
+    tar xzf /app/.php/php-min.tar.gz -C /app/.php/php-min
+    rm /app/.php/php-min.tar.gz
 
-    curl_retry_on_18 --fail --silent --location -o /app/.heroku/composer.tar.gz "${s3_url}composer-1.10.13.tar.gz"
-    tar xzf /app/.heroku/composer.tar.gz -C /app/.heroku/php
+    curl_retry_on_18 --fail --silent --location -o /app/.php/composer.tar.gz "${s3_url}composer-1.10.13.tar.gz"
+    tar xzf /app/.php/composer.tar.gz -C /app/.php/php
 
 }
