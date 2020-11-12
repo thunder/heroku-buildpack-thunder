@@ -31,7 +31,7 @@ install_minimal_composer
 
 # this alias is just for now while we install platform packages
 composer() {
-ls -alh /app/.heroku/php-min
+ls -alh /app/.heroku/php-min/
   /app/.heroku/php-min/bin/php /app/.heroku/php/bin/composer "$@"
 }
 export -f composer
