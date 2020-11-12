@@ -15,7 +15,7 @@ install_minimal_composer() {
     mkdir -p $COMPOSER_HOME
 
     # if the build dir is not "/app", we symlink in the .heroku/php subdir (and only that, to avoid problems with other buildpacks) so that PHP correctly finds its INI files etc
-    [[ $build_dir == '/app' ]] || ln -s $build_dir/.heroku/php /app/.heroku/php
+    # [[ $build_dir == '/app' ]] || ln -s $build_dir/.heroku/php /app/.heroku/php
 
     s3_url="https://lang-php.s3.amazonaws.com/dist-${STACK}-stable/"
     # prepend the default repo to the list configured by the user
