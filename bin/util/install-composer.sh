@@ -13,7 +13,7 @@ install_minimal_composer() {
     # set up Composer
     export COMPOSER_HOME=$cache_dir/.composer
     mkdir -p $COMPOSER_HOME
-
+echo $build_dir
     # if the build dir is not "/app", we symlink in the .heroku/php subdir (and only that, to avoid problems with other buildpacks) so that PHP correctly finds its INI files etc
     [[ $build_dir == '/app' ]] || ln -s $build_dir/.heroku/php /app/.heroku/php
 
