@@ -29,7 +29,6 @@ install_minimal_composer() {
 
     # minimal PHP needed for installs, and make "composer" invocations use that for now
     mkdir -p /app/.php/php-min
-    ln -s /app/.php/php-min /app/.php/php-min
 
     curl_retry_on_18 --fail --silent --location -o /app/.php/php-min.tar.gz "${s3_url}php-min-7.3.23.tar.gz"
     tar xzf /app/.php/php-min.tar.gz -C /app/.php/php-min

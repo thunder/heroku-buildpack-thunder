@@ -31,7 +31,7 @@ install_minimal_composer
 
 # this alias is just for now while we install platform packages
 composer() {
-  /app/.app/php-min/bin/php /app/.app/php/bin/composer "$@"
+  /app/.php/php-min/bin/php /app/.php/php/bin/composer "$@"
 }
 export -f composer
 
