@@ -28,11 +28,10 @@ install_minimal_composer
 # Set up Composer
 #export COMPOSER_HOME=$cache_dir/.composer
 #mkdir -p $COMPOSER_HOME
-ls -alh /app/.heroku/php-min/bin
 
 # this alias is just for now while we install platform packages
 composer() {
-ls -alh /app/
+ls -alh /app/.heroku
   /app/.heroku/php-min/bin/php /app/.heroku/php/bin/composer "$@"
 }
 export -f composer
