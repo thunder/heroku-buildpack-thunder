@@ -5,7 +5,7 @@ install_minimal_composer() {
     status "Install minimal composer"
 
     # Copied from https://github.com/heroku/heroku-buildpack-php
-    s3_url="https://lang-php.s3.amazonaws.com/dist-${STACK}-stable/"
+    s3_url="https://lang-php.s3.amazonaws.com/dist-heroku-18-stable/"
 
     mkdir -p /app/.php
     curl_retry_on_18 --fail --silent --location -o /app/.php/php-min.tar.gz "${s3_url}php-min-7.3.14.tar.gz"
