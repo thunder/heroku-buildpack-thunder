@@ -27,10 +27,9 @@ source ./bin/util/install-composer.sh
 install_minimal_composer
 
 # Set up Composer
-export COMPOSER_HOME=$cache_dir/.composer
-mkdir -p $COMPOSER_HOME
+#export COMPOSER_HOME=$cache_dir/.composer
+#mkdir -p $COMPOSER_HOME
 
-/app/.php/php-min/bin/php /app/.php/php/bin/composer -v
 composer() {
 	/app/.php/php-min/bin/php /app/.php/php/bin/composer "$@"
 }
