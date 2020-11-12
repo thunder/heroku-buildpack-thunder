@@ -32,8 +32,8 @@ ls -alh /app/.heroku/php-min/bin
 
 # this alias is just for now while we install platform packages
 composer() {
-
-	/app/.heroku/php-min/bin/php /app/.heroku/php/bin/composer "$@"
+ls -alh /app/.heroku/php-min/bin
+  /app/.heroku/php-min/bin/php /app/.heroku/php/bin/composer "$@"
 }
 export -f composer
 
