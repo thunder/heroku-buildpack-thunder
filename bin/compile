@@ -53,10 +53,10 @@ composer config repositories.thunder path ${THUNDER_DIST_DIR}
 composer config name "this/thunder-distribution" --working-dir="${THUNDER_DIST_DIR}"
 composer remove thunder/thunder-distribution --no-update
 
-composer require "this/thunder-distribution:*" "thunder/thunder_testing_demo:3.x-dev" "composer/composer:^1.9.0" --no-update
+composer require "this/thunder-distribution:*" "composer/composer:^1.9.0" --no-update
 
 # Add platform requirements.
-composer require "php:>=7.4" --no-update --ignore-platform-reqs
+composer require "php:>=7.4" ext-mbstring:*" --no-update --ignore-platform-reqs
 
 composer install --no-dev --no-progress --ignore-platform-reqs
 
