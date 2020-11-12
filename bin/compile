@@ -30,9 +30,9 @@ install_minimal_composer
 #export COMPOSER_HOME=$cache_dir/.composer
 #mkdir -p $COMPOSER_HOME
 
-composer() {
-	/app/.php/php-min/bin/php /app/.php/php/bin/composer "$@"
-}
+#composer() {
+#	/app/.php/php-min/bin/php /app/.php/php/bin/composer "$@"
+#}
 
 echo "-----> Build composer.lock"
 
