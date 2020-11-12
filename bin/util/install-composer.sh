@@ -40,6 +40,5 @@ install_minimal_composer() {
 
     curl_retry_on_18 --fail --silent --location -o $build_dir/.heroku/composer.tar.gz "${s3_url}composer-1.10.13.tar.gz"
     tar xzf $build_dir/.heroku/composer.tar.gz -C $build_dir/.heroku/php
-   ls -alh /app/.heroku/php-min/bin
 
 }
