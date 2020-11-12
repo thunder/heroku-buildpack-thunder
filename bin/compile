@@ -67,8 +67,9 @@ composer install --no-dev --no-progress --ignore-platform-reqs
 echo "web: heroku-php-apache2 docroot" > Procfile
 
 # Add install after php is setup correctly.
-composer config scripts.compile.0  "php ./docroot/core/scripts/drupal install thunder"
-composer config scripts.compile.1  "vendor/bin/drush -y en thunder_demo"
+composer config scripts.compile.0  "vendor/bin/drush si thunder --account-name=admin --account-pass=admin --account-mail=admin@example.com --site-mail=admin@example.com --site-name=${HEROKU_APP_NAME} --locale=en -y"
+composer config scripts.compile.1  "chmod -R 777 docroot/sites/default/files"
+composer config scripts.compile.2  "vendor/bin/drush -y en thunder_demo"
 
 # Let php build pack do its thing
 /app/heroku-buildpack-php/bin/compile ${TEST_DIR} $orig_cache_dir $env_dir
