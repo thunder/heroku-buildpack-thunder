@@ -2,6 +2,7 @@
 
 # bin/compile <build-dir> <cache-dir> <env-dir>
 
+
 # fail hard
 set -o pipefail
 # fail harder
@@ -56,35 +57,15 @@ composer remove thunder/thunder-distribution --no-update
 composer require "this/thunder-distribution:*" "thunder/thunder_testing_demo:3.x-dev" "composer/composer:^1.9.0" --no-update
 
 # Add platform requirements.
-composer require "php:>=7.4" --no-update --ignore-platform-reqs
+composer require "php:>=7.2" "ext-pdo_sqlite:*" --no-update --ignore-platform-reqs
 
 composer install --no-dev --no-progress --ignore-platform-reqs
 
 # Add runtime command.
-cat <<\EOF > Procfile
-release: vendor/bin/drush si thunder --account-name=admin --account-pass=admin --account-mail=admin@example.com --site-mail=admin@example.com --site-name=${HEROKU_APP_NAME} --locale=en -y; chmod -R 777 docroot/sites/default/files
-web: heroku-php-apache2 docroot
-EOF
+echo "web: heroku-php-apache2 docroot" > Procfile
 
-mkdir -p ${TEST_DIR}/config/sync
-cp ${TEST_DIR}/docroot/sites/default/default.settings.php ${TEST_DIR}/docroot/sites/default/settings.php
-
-cat <<\EOF >> ${TEST_DIR}/docroot/sites/default/settings.php
-$settings['hash_salt'] = 'JT_oQ2RBfau3a-y9twR8c-vxObj2MGRlxP4d9BmnNqjCuuyVvfXFaaFdeSIY-yBAB1LE25fXSw(';
-$settings['config_sync_directory'] = '../config/sync';
-
-$db_info = parse_url(getenv('DATABASE_URL'));
-$databases['default']['default'] = [
-  'database' => trim($db_info['path'],'/'),
-  'username' => $db_info['user'],
-  'password' => $db_info['pass'],
-  'host' => $db_info['host'],
-  'port' => $db_info['port'],
-  'namespace' => 'Drupal\\Core\\Database\\Driver\\pgsql',
-  'driver' => 'pgsql',
-  'prefix' => '',
-];
-EOF
+# Add install after php is setup correctly.
+composer config scripts.compile.0  "php ./docroot/core/scripts/drupal install thunder"
 
 # Let php build pack do its thing
 /app/heroku-buildpack-php/bin/compile ${TEST_DIR} $orig_cache_dir $env_dir
