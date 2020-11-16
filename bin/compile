@@ -35,7 +35,6 @@ composer() {
 }
 export -f composer
 
-
 echo "-----> Build composer.lock"
 
 ### Build thunder project.
@@ -48,18 +47,10 @@ export COMPOSER_MEMORY_LIMIT=-1
 
 composer create-project thunder/thunder-project:3.x ${TEST_DIR} --stability dev --no-interaction --no-install
 
-echo $build_dir
-ls $build_dir
-echo ${THUNDER_DIST_DIR}
-ls ${THUNDER_DIST_DIR}
-ls /app
-ls /app/thunder
-
 cd ${TEST_DIR}
-
 mv /app/thunder ${THUNDER_DIST_DIR}
 
-composer config repositories.thunder path ${THUNDER_DIST_DIR}
+composer config repositories.thunder path './thunder-distribution'
 composer config name "this/thunder-distribution" --working-dir="${THUNDER_DIST_DIR}"
 composer remove thunder/thunder-distribution --no-update
 

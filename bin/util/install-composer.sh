@@ -2,7 +2,7 @@
 
 install_minimal_composer() {
 
-    echo "Install minimal composer"
+    echo "-----> Install minimal composer"
 
     ### Copied from https://github.com/heroku/heroku-buildpack-php
 
