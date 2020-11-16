@@ -15,7 +15,6 @@ cache_dir=$2/php
 mkdir -p "$cache_dir"
 env_dir=${3:-} # Anvil has none
 
-echo $build_dir
 git clone --quiet https://github.com/heroku/heroku-buildpack-php /app/heroku-buildpack-php
 
 # Use library from heroku-buildpack-php.
@@ -24,10 +23,6 @@ source /app/heroku-buildpack-php/bin/util/common.sh
 # Install minimal composer
 source ./bin/util/install-composer.sh
 install_minimal_composer
-
-# Set up Composer
-#export COMPOSER_HOME=$cache_dir/.composer
-#mkdir -p $COMPOSER_HOME
 
 # this alias is just for now while we install platform packages
 composer() {
