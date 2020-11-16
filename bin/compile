@@ -68,7 +68,7 @@ echo "web: heroku-php-apache2 docroot" > Procfile
 composer config scripts.compile.0  "php ./docroot/core/scripts/drupal install thunder"
 composer config scripts.compile.1  "chmod -R 777 docroot/sites/default/files"
 composer config scripts.compile.2  "vendor/bin/drush -y en thunder_demo"
-composer config scripts.compile.3  "env"
+composer config scripts.compile.3  "vendor/bin/drush user:password admin admin"
 
 
 # Let php build pack do its thing
