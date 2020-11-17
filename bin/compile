@@ -38,9 +38,11 @@ mkdir $build_dir
 
 export COMPOSER_MEMORY_LIMIT=-1
 
-composer create-project thunder/thunder-project:3.x $build_dir --stability dev --no-interaction --no-install
+composer create-project thunder/thunder-project:3.x ${build_dir} --stability dev --no-interaction --no-install
 
-cd $build_dir
+cd ${build_dir}
+
+ls
 
 composer config repositories.thunder path "./thunder"
 composer config name "this/thunder-distribution" --working-dir="/app/thunder"
