@@ -49,7 +49,7 @@ composer config repositories.thunder path './thunder-distribution'
 composer config name "this/thunder-distribution" --working-dir="${THUNDER_DIST_DIR}"
 composer remove thunder/thunder-distribution --no-update
 
-composer require "this/thunder-distribution:*" "composer/composer:^1.9.0" --no-update
+composer require "this/thunder-distribution:*" --no-update
 
 # Add platform requirements.
 composer require "php:>=7.4" "ext-pdo_sqlite:*" --no-update --ignore-platform-reqs
