@@ -44,7 +44,7 @@ cd ${build_dir}
 mv /app/thunder ${build_dir}
 
 composer config repositories.thunder path "./thunder"
-composer config name "this/thunder-distribution" --working-dir="/app/thunder"
+composer config name "this/thunder-distribution" --working-dir="./thunder"
 composer remove thunder/thunder-distribution --no-update
 
 composer require "this/thunder-distribution:*" --no-update
