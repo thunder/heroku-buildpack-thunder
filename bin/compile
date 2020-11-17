@@ -36,17 +36,14 @@ echo "-----> Build composer.lock"
 mv $build_dir /app/thunder
 mkdir $build_dir
 
-TEST_DIR=$build_dir
-THUNDER_DIST_DIR=$build_dir/thunder-distribution
 export COMPOSER_MEMORY_LIMIT=-1
 
-composer create-project thunder/thunder-project:3.x ${TEST_DIR} --stability dev --no-interaction --no-install
+composer create-project thunder/thunder-project:3.x $build_dir --stability dev --no-interaction --no-install
 
-cd ${TEST_DIR}
-mv /app/thunder ${THUNDER_DIST_DIR}
+cd $build_dir
 
-composer config repositories.thunder path './thunder-distribution'
-composer config name "this/thunder-distribution" --working-dir="${THUNDER_DIST_DIR}"
+composer config repositories.thunder path "./thunder"
+composer config name "this/thunder-distribution" --working-dir="/app/thunder"
 composer remove thunder/thunder-distribution --no-update
 
 composer require "this/thunder-distribution:*" --no-update
@@ -67,4 +64,4 @@ composer config scripts.compile.3  "vendor/bin/drush user:password admin admin"
 
 
 # Let php build pack do its thing
-/app/heroku-buildpack-php/bin/compile ${TEST_DIR} $orig_cache_dir $env_dir
+/app/heroku-buildpack-php/bin/compile $build_dir $orig_cache_dir $env_dir
