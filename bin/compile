@@ -9,7 +9,6 @@ set -eu
 # move hidden files too, just in case
 shopt -s dotglob
 
-#STACK=${STACK:-cedar-14} # Anvil has none
 build_dir=$1
 orig_cache_dir=$2
 cache_dir=$2/php
@@ -25,13 +24,11 @@ source /app/heroku-buildpack-php/bin/util/common.sh
 source ./bin/util/install-composer.sh
 install_minimal_composer
 
-# Set up Composer
-export COMPOSER_HOME=$cache_dir/.composer
-mkdir -p $COMPOSER_HOME
-
+# this alias is just for now while we install platform packages
 composer() {
-	/app/.php/php-min/bin/php /app/.php/php/bin/composer "$@"
+  /app/.php/php-min/bin/php /app/.php/php/bin/composer "$@"
 }
+export -f composer
 
 echo "-----> Build composer.lock"
 
@@ -39,52 +36,33 @@ echo "-----> Build composer.lock"
 mv $build_dir /app/thunder
 mkdir $build_dir
 
-TEST_DIR=$build_dir
-THUNDER_DIST_DIR=$build_dir/thunder-distribution
 export COMPOSER_MEMORY_LIMIT=-1
 
-composer create-project thunder/thunder-project:3.x ${TEST_DIR} --stability dev --no-interaction --no-install
+composer create-project thunder/thunder-project:3.x ${build_dir} --stability dev --no-interaction --no-install
 
-cd ${TEST_DIR}
+cd ${build_dir}
+mv /app/thunder ${build_dir}
 
-mv /app/thunder ${THUNDER_DIST_DIR}
-
-composer config repositories.thunder path ${THUNDER_DIST_DIR}
-composer config name "this/thunder-distribution" --working-dir="${THUNDER_DIST_DIR}"
+composer config repositories.thunder path "./thunder"
+composer config name "this/thunder-distribution" --working-dir="./thunder"
 composer remove thunder/thunder-distribution --no-update
 
-composer require "this/thunder-distribution:*" "thunder/thunder_testing_demo:3.x-dev" "composer/composer:^1.9.0" --no-update
+composer require "this/thunder-distribution:*" --no-update
 
 # Add platform requirements.
-composer require "php:>=7.4" --no-update --ignore-platform-reqs
+composer require "php:>=7.4" "ext-pdo_sqlite:*" --no-update --ignore-platform-reqs
 
-composer install --no-dev --no-progress --ignore-platform-reqs
+composer update --no-dev --no-progress --ignore-platform-reqs
 
 # Add runtime command.
-cat <<\EOF > Procfile
-release: psql $DATABASE_URL --command="drop schema public cascade; create schema public;"; vendor/bin/drush si thunder --account-name=admin --account-pass=admin --account-mail=admin@example.com --site-mail=admin@example.com --site-name=${HEROKU_APP_NAME} --locale=en -y; chmod -R 777 docroot/sites/default/files
-web: heroku-php-apache2 docroot
-EOF
+echo "web: heroku-php-apache2 docroot" > Procfile
 
-mkdir -p ${TEST_DIR}/config/sync
-cp ${TEST_DIR}/docroot/sites/default/default.settings.php ${TEST_DIR}/docroot/sites/default/settings.php
+# Add install after php is setup correctly.
+composer config scripts.compile.0  "php ./docroot/core/scripts/drupal install thunder"
+composer config scripts.compile.1  "chmod -R 777 docroot/sites/default/files"
+composer config scripts.compile.2  "vendor/bin/drush -y en thunder_demo"
+composer config scripts.compile.3  "vendor/bin/drush user:password admin admin"
 
-cat <<\EOF >> ${TEST_DIR}/docroot/sites/default/settings.php
-$settings['hash_salt'] = 'JT_oQ2RBfau3a-y9twR8c-vxObj2MGRlxP4d9BmnNqjCuuyVvfXFaaFdeSIY-yBAB1LE25fXSw(';
-$settings['config_sync_directory'] = '../config/sync';
-
-$db_info = parse_url(getenv('DATABASE_URL'));
-$databases['default']['default'] = [
-  'database' => trim($db_info['path'],'/'),
-  'username' => $db_info['user'],
-  'password' => $db_info['pass'],
-  'host' => $db_info['host'],
-  'port' => $db_info['port'],
-  'namespace' => 'Drupal\\Core\\Database\\Driver\\pgsql',
-  'driver' => 'pgsql',
-  'prefix' => '',
-];
-EOF
 
 # Let php build pack do its thing
-/app/heroku-buildpack-php/bin/compile ${TEST_DIR} $orig_cache_dir $env_dir
+/app/heroku-buildpack-php/bin/compile $build_dir $orig_cache_dir $env_dir
