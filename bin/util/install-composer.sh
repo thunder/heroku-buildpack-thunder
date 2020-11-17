@@ -10,6 +10,8 @@ install_minimal_composer() {
     mkdir -p /app/.php
     # all system packages live in there
     mkdir -p /app/.php/php
+    mkdir -p /app/.php/php/bin
+
     # set up Composer
     export COMPOSER_HOME=$cache_dir/.composer
     mkdir -p $COMPOSER_HOME
@@ -34,6 +36,6 @@ install_minimal_composer() {
     tar xzf /app/.php/php-min.tar.gz -C /app/.php/php-min
     rm /app/.php/php-min.tar.gz
 
-    curl_retry_on_18 --fail --silent --location -o /app/.php/php/composer "https://getcomposer.org/composer-stable.phar"
+    curl_retry_on_18 --fail --silent --location -o /app/.php/php/bin/composer "https://getcomposer.org/composer-stable.phar"
 
 }
