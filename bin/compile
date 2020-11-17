@@ -54,7 +54,7 @@ composer require "this/thunder-distribution:*" --no-update
 # Add platform requirements.
 composer require "php:>=7.4" "ext-pdo_sqlite:*" --no-update --ignore-platform-reqs
 
-composer install --no-dev --no-progress --ignore-platform-reqs
+composer update --no-dev --no-progress --ignore-platform-reqs
 
 # Add runtime command.
 echo "web: heroku-php-apache2 docroot" > Procfile

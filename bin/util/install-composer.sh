@@ -7,9 +7,6 @@ install_minimal_composer() {
     ### Copied from https://github.com/heroku/heroku-buildpack-php
 
     # PHP expects to be installed in /app/.php/php because of compiled paths, let's set that up!
-    mkdir -p /app/.php
-    # all system packages live in there
-    mkdir -p /app/.php/php
     mkdir -p /app/.php/php/bin
 
     # set up Composer
