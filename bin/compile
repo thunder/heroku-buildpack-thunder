@@ -55,10 +55,11 @@ composer require "php:>=7.4" "ext-pdo_sqlite:*" --no-update --ignore-platform-re
 composer update --no-dev --no-progress --ignore-platform-reqs
 
 # Add runtime command.
-cat <<\EOF > Procfile
-release: vendor/bin/drush -y en thunder_demo
-web: heroku-php-apache2 docroot
-EOF
+echo "web: heroku-php-apache2 docroot" > Procfile
+#cat <<\EOF > Procfile
+#release: vendor/bin/drush -y en thunder_demo
+#web: heroku-php-apache2 docroot
+#EOF
 
 # Add install after php is setup correctly.
 composer config scripts.compile.0  "php ./docroot/core/scripts/drupal install thunder"
