@@ -60,12 +60,10 @@ echo "web: heroku-php-apache2 docroot" > Procfile
 # Add install after php is setup correctly.
 composer config scripts.compile.0  "php ./docroot/core/scripts/drupal install thunder"
 composer config scripts.compile.1  "chmod -R 777 docroot/sites/default/files"
-composer config scripts.compile.2  "php -i; vendor/bin/drush -y en tour help default_content hal serialization"
-#composer config scripts.compile.3  "vendor/bin/drush -y en thunder_demo"
+composer config scripts.compile.2  "vendor/bin/drush -y en thunder_demo"
 composer config scripts.compile.3  "vendor/bin/drush user:password admin admin"
 
+composer config process-timeout "0"
 
 # Let php build pack do its thing
 /app/heroku-buildpack-php/bin/compile $build_dir $orig_cache_dir $env_dir
-
-vendor/bin/drush -y en thunder_demo
