@@ -57,13 +57,15 @@ composer update --no-dev --no-progress --ignore-platform-reqs
 # Add runtime command.
 echo "web: heroku-php-apache2 docroot" > Procfile
 
-###echo "memory_limit = 256M" > /app/.heroku/php/etc/php/conf.d/130-memory-limit.ini
+echo "memory_limit = 256M" > /app/.heroku/php/etc/php/conf.d/130-memory-limit.ini
+
+export COMPOSER_PROCESS_TIMEOUT=0
 
 # Add install after php is setup correctly.
-composer config scripts.compile.0  "php -i;php ./docroot/core/scripts/drupal install thunder"
+composer config scripts.compile.0  "php ./docroot/core/scripts/drupal install thunder"
 composer config scripts.compile.1  "chmod -R 777 docroot/sites/default/files"
-#composer config scripts.compile.2  "php -d display_errors=on vendor/bin/drush -vvv -y en thunder_demo"
-composer config scripts.compile.2  "vendor/bin/drush user:password admin admin"
+composer config scripts.compile.2  "vendor/bin/drush -vvv -y en thunder_demo"
+composer config scripts.compile.3  "vendor/bin/drush user:password admin admin"
 
 
 # Let php build pack do its thing
