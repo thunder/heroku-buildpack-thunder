@@ -57,8 +57,6 @@ composer update --no-dev --no-progress --ignore-platform-reqs
 # Add runtime command.
 echo "web: heroku-php-apache2 docroot" > Procfile
 
-echo "memory_limit = 256M" > /app/.heroku/php/etc/php/conf.d/130-memory-limit.ini
-
 export COMPOSER_PROCESS_TIMEOUT=0
 
 # Add install after php is setup correctly.
