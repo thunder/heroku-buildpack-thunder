@@ -15,7 +15,8 @@ cache_dir=$2/php
 mkdir -p "$cache_dir"
 env_dir=${3:-} # Anvil has none
 
-git clone --quiet https://github.com/heroku/heroku-buildpack-php /app/heroku-buildpack-php
+#git clone --quiet https://github.com/heroku/heroku-buildpack-php /app/heroku-buildpack-php
+git clone --quiet https://github.com/thunder/heroku-buildpack-php -b debug /app/heroku-buildpack-php
 
 # Use library from heroku-buildpack-php.
 source /app/heroku-buildpack-php/bin/util/common.sh
