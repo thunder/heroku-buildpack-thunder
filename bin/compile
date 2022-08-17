@@ -43,8 +43,11 @@ composer create-project thunder/thunder-project:3.x ${build_dir} --stability dev
 cd ${build_dir}
 mv /app/thunder ${build_dir}
 
+composer config --no-plugins allow-plugins.cweagans/composer-patches true
 composer config --no-plugins allow-plugins.drupal/core-composer-scaffold true
 composer config --no-plugins allow-plugins.composer/installers true
+composer config --no-plugins allow-plugins.oomphinc/composer-installers-extender true
+
 
 composer config repositories.thunder path "./thunder"
 composer config name "this/thunder-distribution" --working-dir="./thunder"
