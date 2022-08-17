@@ -49,6 +49,8 @@ composer remove thunder/thunder-distribution --no-update
 
 composer require "this/thunder-distribution:*" --no-update
 
+composer global config allow-plugins.drupal/core-composer-scaffold true --no-plugins
+
 # Add platform requirements.
 composer require "php:~8.1.0" "ext-pdo_sqlite:*" --no-update --ignore-platform-reqs
 
