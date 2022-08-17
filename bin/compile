@@ -43,13 +43,13 @@ composer create-project thunder/thunder-project:3.x ${build_dir} --stability dev
 cd ${build_dir}
 mv /app/thunder ${build_dir}
 
+composer config --no-plugins allow-plugins.drupal/core-composer-scaffold true
+
 composer config repositories.thunder path "./thunder"
 composer config name "this/thunder-distribution" --working-dir="./thunder"
 composer remove thunder/thunder-distribution --no-update
 
 composer require "this/thunder-distribution:*" --no-update
-
-composer global config allow-plugins.drupal/core-composer-scaffold true --no-plugins
 
 # Add platform requirements.
 composer require "php:~8.1.0" "ext-pdo_sqlite:*" --no-update --ignore-platform-reqs
