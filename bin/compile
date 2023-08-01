@@ -50,6 +50,11 @@ composer config --no-plugins allow-plugins.oomphinc/composer-installers-extender
 
 
 composer config repositories.thunder path "./thunder"
+composer config repositories.0 path "./thunder"
+composer config repositories.1 composer https://repo.packagist.com/burdaverlag/
+composer config repositories.2 composer https://asset-packagist.org
+composer config repositories.3 composer https://packages.drupal.org/8
+
 composer config name "this/thunder-distribution" --working-dir="./thunder"
 composer remove thunder/thunder-distribution --no-update
 
