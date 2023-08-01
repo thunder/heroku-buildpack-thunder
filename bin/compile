@@ -38,6 +38,8 @@ mkdir $build_dir
 
 export COMPOSER_MEMORY_LIMIT=-1
 
+composer config --global --auth http-basic.repo.packagist.com token $COMPOSER_PACKAGIST_TOKEN
+
 composer create-project thunder/thunder-project:3.x ${build_dir} --stability dev --no-interaction --no-install
 
 cd ${build_dir}
