@@ -38,7 +38,7 @@ mkdir $build_dir
 
 export COMPOSER_MEMORY_LIMIT=-1
 
-composer create-project thunder/thunder-project:dev-morpho ${build_dir} --stability dev --no-interaction --no-install
+composer create-project thunder/thunder-project:4.x ${build_dir} --stability dev --no-interaction --no-install
 
 cd ${build_dir}
 mv /app/thunder ${build_dir}
