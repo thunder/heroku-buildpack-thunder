@@ -53,7 +53,7 @@ composer config repositories.thunder path "./thunder"
 composer config name "this/thunder-distribution" --working-dir="./thunder"
 composer remove thunder/thunder-distribution --no-update
 
-composer require "this/thunder-distribution:*" --no-update
+composer require "this/thunder-distribution:* thunder/thunder_testing_demo:4.x-dev" --no-update
 
 # Add platform requirements.
 composer require "php:~8.3.0" "ext-pdo_sqlite:*" --no-update --ignore-platform-reqs
@@ -66,7 +66,7 @@ echo "web: heroku-php-apache2 docroot" > Procfile
 # Add install after php is setup correctly.
 composer config scripts.compile.0  "php -d memory_limit=256M ./docroot/core/scripts/drupal install thunder"
 composer config scripts.compile.1  "chmod -R 777 docroot/sites/default/files"
-composer config scripts.compile.2  "php -d memory_limit=256M vendor/bin/drush -y en thunder_demo"
+composer config scripts.compile.2  "php -d memory_limit=256M vendor/bin/drush -y en thunder_testing_demo"
 composer config scripts.compile.3  "vendor/bin/drush user:password admin admin"
 
 
