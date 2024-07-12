@@ -53,7 +53,10 @@ composer config repositories.thunder path "./thunder"
 composer config name "this/thunder-distribution" --working-dir="./thunder"
 composer remove thunder/thunder-distribution --no-update
 
-composer require "this/thunder-distribution:* thunder/thunder_testing_demo:4.x" --no-update
+composer require "this/thunder-distribution:*" --no-update
+
+# Add thunder_testing
+composer require "thunder/thunder_testing_demo:4.x-dev" --no-update
 
 # Add platform requirements.
 composer require "php:~8.3.0" "ext-pdo_sqlite:*" --no-update --ignore-platform-reqs
